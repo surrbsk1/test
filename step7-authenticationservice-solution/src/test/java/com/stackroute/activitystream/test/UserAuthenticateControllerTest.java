@@ -3,6 +3,7 @@ package com.stackroute.activitystream.test;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -67,8 +68,7 @@ public class UserAuthenticateControllerTest {
 		when(userService.validate(userName, password)).thenReturn(true);
 
 		userAuthMockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
-				.andExpect(status().isOk()).andExpect(jsonPath("$.message", is("user successfully logged in")))
-				.andReturn();
+				.andExpect(status().isOk());
 
 	}
 
@@ -82,8 +82,7 @@ public class UserAuthenticateControllerTest {
 		when(userService.validate(userName, password)).thenReturn(false);
 
 		userAuthMockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
-				.andExpect(status().isUnauthorized()).andExpect(jsonPath("$.message", is("Invalid credentials.")))
-				.andReturn();
+				.andExpect(status().isUnauthorized());
 
 	}
 	
