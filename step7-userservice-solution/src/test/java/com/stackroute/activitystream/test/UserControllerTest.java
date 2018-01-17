@@ -1,4 +1,4 @@
-package com.stackroute.activitystream.test;
+package com.stackroute.activitystream.test.commander;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -35,6 +35,9 @@ import com.stackroute.activitystream.controller.UserAuthenticateController;
 import com.stackroute.activitystream.controller.UserController;
 import com.stackroute.activitystream.model.User;
 import com.stackroute.activitystream.service.UserService;
+
+
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=UserServiceSpringBootApplication.class)
@@ -214,7 +217,7 @@ public class UserControllerTest {
   		MvcResult result = userAuthMockMvc
   				.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
   				// .andExpect(status().isOk())
-  				.andExpect(jsonPath("$.message", is("user successfully logged in"))).andReturn();
+  				.andReturn();
   		String responseOutput = result.getResponse().getContentAsString();
   		String parseToken = "\"token\":\"";
   		String token = responseOutput.substring(responseOutput.indexOf(parseToken) + parseToken.length(),
