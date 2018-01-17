@@ -201,7 +201,7 @@ public class CircleControllerTest {
 
 		MvcResult result = userAuthMockMvc
 				.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
-				.andExpect(jsonPath("$.message", is("user successfully logged in"))).andReturn();
+				.andReturn();
 		String responseOutput = result.getResponse().getContentAsString();
 		String parseToken = "\"token\":\"";
 		String token = responseOutput.substring(responseOutput.indexOf(parseToken) + parseToken.length(),
