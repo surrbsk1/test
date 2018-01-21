@@ -2,9 +2,9 @@ server:
   port: 8085
 spring:
   datasource:
-   url: jdbc:mysql://localhost:3306/activitystream_step7_usercircle
-   username: root
-   password: pass@word1
+   url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE}?verifyServerCertificate=false&useSSL=false&requireSSL=false
+   username: ${MYSQL_USER}
+   password: ${MYSQL_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
