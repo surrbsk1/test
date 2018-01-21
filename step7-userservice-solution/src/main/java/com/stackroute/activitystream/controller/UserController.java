@@ -25,13 +25,15 @@ import com.stackroute.activitystream.service.UserService;
  * format. Starting from Spring 4 and above, we can use @RestController annotation which 
  * is equivalent to using @Controller and @ResposeBody annotation
  */
+@RestController
+@RequestMapping(value = "/api/user")
 public class UserController {
-
 	/*
 	 * Autowiring should be implemented for the UserService. 
 	 * Please note that we should not create any object using the new keyword 
 	 */
-	
+	@Autowired
+	public UserService userService;
 	
 	/* Define a handler method which will list all the available users.
 	 * This handler method should return any one of the status messages basis on different
@@ -40,6 +42,13 @@ public class UserController {
 	 * 
 	 * This handler method should map to the URL "/api/user" using HTTP GET method
 	*/
+	@GetMapping()
+	public ResponseEntity<?> getAllUsers() {
+		
+			List<User> allUsers = userService.list();
+			return new ResponseEntity<List<User>>(allUsers, HttpStatus.OK);
+	
+	}
 	
 	/* Define a handler method which will show details of a specific user.
 	 * This handler method should return any one of the status messages basis on different
@@ -49,7 +58,16 @@ public class UserController {
 	 * This handler method should map to the URL "/api/user/{username}" using HTTP GET method
 	 * where "username" should be replaced by a username without {}
 	*/
-	
+	@GetMapping(value = "/{username}")
+	public ResponseEntity<?> getUser(@PathVariable("username") String username) {
+		
+			User user = userService.get(username);
+			if (user.getUsername() != null)
+				return new ResponseEntity<User>(user, HttpStatus.OK);
+			else
+				return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+		
+	}
 	/* Define a handler method which will create a specific user by reading the 
 	 * Serialized object from request body and save the user details in user table 
 	 * in database. This handler method should return any one of the status messages
@@ -63,7 +81,18 @@ public class UserController {
 	 * use the app, he will register himself first before login.
 	 * This handler method should map to the URL "/api/user" using HTTP POST method
 	*/
-	
+	@PostMapping()
+	public ResponseEntity<User> createUser(@RequestBody User user) {
+		User userObj = userService.get(user.getUsername());
+
+		if (userObj != null) {
+			return new ResponseEntity<User>(HttpStatus.CONFLICT);
+		} else {
+			userService.save(user);
+			return new ResponseEntity<User>(user, HttpStatus.CREATED);
+		}
+
+	}
 	
 	/* Define a handler method which will update an specific user by reading the 
 	 * Serialized object from request body and save the updated user details in user table 
@@ -74,4 +103,22 @@ public class UserController {
 	 * 
 	 * This handler method should map to the URL "/api/user/{username}" using HTTP PUT method
 	*/
+	@PutMapping(value = "/{username}")
+	public ResponseEntity<?> updateUser(@PathVariable("username") String username, @RequestBody User user) {
+
+		User userObj = userService.get(user.getUsername());
+		
+			User currentUser = userService.get(username);
+		
+			if (currentUser != null) {
+				currentUser.setName(user.getName());
+				currentUser.setPassword(user.getPassword());
+				userService.update(currentUser);
+				return new ResponseEntity<User>(user, HttpStatus.OK);
+			} else {
+
+				return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+			}
+		
+	}
 }

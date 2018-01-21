@@ -14,38 +14,62 @@ import org.springframework.stereotype.Component;
  * Please note that you will have to use @Component annotation on this class if wish
  * to autowire the class from any other components of the application
  */
-public class Circle {
-	/*
-	 * This class should have three fields
-	 * (circleName,creatorId,createdDate). Out of these three fields, the
-	 * field circleName should be the primary key. This class should also contain
-	 * the getters and setters for the fields. The value of createdDate should
-	 * not be accepted from the user but should be always initialized with the
-	 * system date
-	 */
-	
-	
-	
-	public Circle(String string, String string2, Timestamp timestamp) {
-		// TODO Auto-generated constructor stub
-	}
-	public Circle() {
-		// TODO Auto-generated constructor stub
-	}
-	public void setCircleName(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setCreatedDate() {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setCreatorId(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-	public String getCircleName() {
-		// TODO Auto-generated method stub
-		return null;
-	}	
-}
+ @Entity
+ @Component
+ public class Circle {
+
+ 	/*
+ 	 * This class should have three fields
+ 	 * (circleName,creatorId,createdDate). Out of these three fields, the
+ 	 * field circleName should be the primary key. This class should also contain
+ 	 * the getters and setters for the fields. The value of createdDate should
+ 	 * not be accepted from the user but should be always initialized with the
+ 	 * system date
+ 	 */
+ 	@Id
+ 	private String circleName;
+ 	private String creatorId;
+ 	private Timestamp createdDate;
+ 	
+ 	public Circle() {
+ 		// TODO Auto-generated constructor stub
+ 	}
+ 	
+ 	public Circle(String circleName) {
+ 		this.circleName=circleName;
+ 		this.createdDate=new Timestamp(System.currentTimeMillis());
+ 	}
+ 	
+ 	public Circle(String circleName, String creatorId) {
+ 		this.circleName=circleName;
+ 		this.creatorId=creatorId;
+ 		this.createdDate=new Timestamp(System.currentTimeMillis());
+ 	}
+ 	
+ 	
+
+ 	public Circle(String circleName, String creatorId, Timestamp createdDate) {
+ 		this.circleName=circleName;
+ 		this.creatorId=creatorId;
+ 		this.createdDate=createdDate;
+ 	}
+ 	public void setCircleName(String circleName) {
+ 		this.circleName= circleName;
+ 	}
+ 	public void setCreatorId(String creatorId) {
+ 		this.creatorId=creatorId;
+ 	}
+ 	public void setCreatedDate() {
+ 		this.createdDate = new Timestamp(System.currentTimeMillis());;
+ 	}
+ 	public String getCircleName() {
+ 		return circleName;
+ 	}
+ 	public Timestamp getCreatedDate() {
+ 		return createdDate;
+ 	}
+ 	
+ 	public String getCreatorId() {
+ 		return creatorId;
+ 	}	
+ }

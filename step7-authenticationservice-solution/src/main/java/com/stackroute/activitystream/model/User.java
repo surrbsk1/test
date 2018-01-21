@@ -16,6 +16,8 @@ import javax.persistence.Table;
  * Please note that you will have to use @Component annotation on this class if wish
  * to autowire the class from any other components of the application
  */
+@Entity
+@Component
 public class User {
 	/*
 	 * This class should have three fields
@@ -23,28 +25,44 @@ public class User {
 	 * field username should be the primary key. This class should also contain
 	 * the getters and setters for the fields.
 	 */
+	@Id
+	private String username;
+	private String name;
+	private String password;
 	
-	public User(String string, String string2, String string3) {
-		// TODO Auto-generated constructor stub
+	public User(String username, String name, String password) {
+		this.username=username;
+		this.name=name;
+		this.password=password;
 	}
+
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-	public void setName(String string) {
-		// TODO Auto-generated method stub
+
+	public void setName(String name) {
+		this.name=name;
 		
 	}
-	public void setPassword(String string) {
-		// TODO Auto-generated method stub
-		
+
+	public void setPassword(String password) {
+		this.password=password;
 	}
-	public void setUsername(String string) {
-		// TODO Auto-generated method stub
-		
+
+	public void setUsername(String username) {
+		this.username=username;
 	}
+
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
-	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 }

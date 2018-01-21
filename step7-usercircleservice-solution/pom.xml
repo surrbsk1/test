@@ -52,6 +52,13 @@
 		</dependency>
 	
 		<!-- add dependency for jjwt  -->	
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt</artifactId>
+		    <version>0.7.0</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -110,7 +110,5 @@ public class CircleController {
 	public ResponseEntity<List<Circle>> getAllCircles(@PathVariable("searchString") String searchString) {
 
 		return new ResponseEntity<List<Circle>>(circleService.getAllCircles(searchString), HttpStatus.OK);
-
 	}
-
 }

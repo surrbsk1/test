@@ -1,4 +1,4 @@
-package com.stackroute.activitystream.test.commander;
+package com.stackroute.activitystream.test;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
